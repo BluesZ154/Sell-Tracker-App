@@ -23,14 +23,14 @@
 
 # Tech Stack
 
-## Frontend
+# Frontend
 - React.js
 - React Router DOM
 - Axios
 - Framer Motion
 - CSS3
 
-###Backend
+# Backend
 - Node.js
 - Express.js
 - MongoDB
