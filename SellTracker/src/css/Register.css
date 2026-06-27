@@ -1,0 +1,406 @@
+/* ===== GOOGLE FONT ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #020617;
+  --card: rgba(15, 23, 42, 0.72);
+  --border: rgba(255,255,255,0.08);
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --danger: #ef4444;
+
+  --shadow: 0 17px 51px rgba(0,0,0,0.45);
+}
+
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+
+  background:
+    radial-gradient(circle at top left, rgba(99,102,241,0.18), transparent 25%),
+    radial-gradient(circle at bottom right, rgba(168,85,247,0.18), transparent 30%),
+    var(--bg);
+
+  color: var(--text);
+
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+/* ===== CONTAINER ===== */
+.register-container {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+}
+
+/* ===== CARD ===== */
+.register-content {
+  width: 100%;
+  max-width: 476px;
+
+  background: var(--card);
+
+  border: 1px solid var(--border);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  border-radius: 27px;
+
+  padding: 36px 31px;
+
+  position: relative;
+  overflow: hidden;
+
+  box-shadow: var(--shadow);
+
+  animation: fadeUp 0.6s ease;
+}
+
+/* ===== GLOW EFFECT ===== */
+.register-content::before {
+  content: "";
+
+  position: absolute;
+
+  width: 221px;
+  height: 221px;
+
+  background: rgba(99,102,241,0.18);
+
+  border-radius: 50%;
+
+  top: -102px;
+  right: -68px;
+
+  filter: blur(26px);
+}
+
+.register-content::after {
+  content: "";
+
+  position: absolute;
+
+  width: 187px;
+  height: 187px;
+
+  background: rgba(168,85,247,0.15);
+
+  border-radius: 50%;
+
+  bottom: -85px;
+  left: -68px;
+
+  filter: blur(26px);
+}
+
+/* ===== HEADER ===== */
+/* ===== HEADER ===== */
+.register-header {
+  margin-bottom: 26px;
+
+  position: relative;
+  z-index: 2;
+
+  padding-top: 4px;
+}
+
+/* ===== TITLE ===== */
+.register-title {
+  font-size: clamp(2.2rem, 6vw, 3rem);
+
+  font-weight: 800;
+
+  line-height: 1.15;
+
+  letter-spacing: -1.6px;
+
+  margin-bottom: 10px;
+
+  padding-top: 4px;
+
+  word-break: break-word;
+  overflow-wrap: break-word;
+
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #d8b4fe,
+    #93c5fd
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== SUBTITLE ===== */
+.register-semi-title {
+  color: var(--muted);
+
+  font-size: 0.84rem;
+
+  line-height: 1.6;
+
+  max-width: 92%;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+
+  .register-header {
+    margin-bottom: 22px;
+  }
+
+  .register-title {
+    font-size: clamp(1.9rem, 8vw, 2.4rem);
+
+    line-height: 1.18;
+
+    letter-spacing: -1.2px;
+
+    margin-bottom: 8px;
+  }
+
+  .register-semi-title {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 420px) {
+
+  .register-title {
+    font-size: 1.7rem;
+
+    line-height: 1.2;
+
+    letter-spacing: -1px;
+  }
+
+  .register-semi-title {
+    font-size: 0.76rem;
+  }
+}
+
+/* ===== ERROR ===== */
+.register-error-text {
+  background: rgba(239,68,68,0.12);
+
+  border: 1px solid rgba(239,68,68,0.25);
+
+  color: #f87171;
+
+  padding: 12px 14px;
+
+  border-radius: 12px;
+
+  margin-bottom: 19px;
+
+  font-size: 0.78rem;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== FORM ===== */
+.register-form-submit-section {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+
+  position: relative;
+  z-index: 2;
+}
+
+.username-form,
+.email-form,
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.username-form-label,
+.email-form-label,
+.password-form-label {
+  color: #e2e8f0;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ===== INPUT ===== */
+.username-form-input,
+.email-form-input,
+.password-form-input {
+  width: 100%;
+
+  background: rgba(255,255,255,0.05);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  color: white;
+
+  padding: 13px 14px;
+
+  border-radius: 14px;
+
+  outline: none;
+
+  transition: 0.25s ease;
+
+  font-size: 0.8rem;
+}
+
+.username-form-input::placeholder,
+.email-form-input::placeholder,
+.password-form-input::placeholder {
+  color: #64748b;
+}
+
+.username-form-input:focus,
+.email-form-input:focus,
+.password-form-input:focus {
+  border-color: rgba(99,102,241,0.8);
+
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+}
+
+/* ===== BUTTON ===== */
+.submit-btn-section {
+  margin-top: 5px;
+}
+
+.submit-btn {
+  width: 100%;
+
+  border: none;
+
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+
+  color: white;
+
+  padding: 14px 17px;
+
+  border-radius: 14px;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+
+  box-shadow: 0 8px 20px rgba(99,102,241,0.35);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+
+  opacity: 0.96;
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== FOOTER ===== */
+.register-footer {
+  margin-top: 22px;
+
+  text-align: center;
+
+  position: relative;
+  z-index: 2;
+}
+
+.register-footer-text {
+  color: var(--muted);
+
+  font-size: 0.8rem;
+}
+
+.link-to-login {
+  color: #c4b5fd;
+
+  text-decoration: none;
+
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.link-to-login:hover {
+  color: white;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(17px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .register-content {
+    padding: 31px 20px;
+
+    border-radius: 22px;
+  }
+
+  .register-title {
+    font-size: 2rem;
+  }
+
+  .register-semi-title {
+    font-size: 0.79rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .register-container {
+    padding: 15px 12px;
+  }
+
+  .register-content {
+    padding: 26px 17px;
+  }
+
+  .register-title {
+    font-size: 1.7rem;
+  }
+
+  .submit-btn {
+    padding: 13px;
+  }
+}

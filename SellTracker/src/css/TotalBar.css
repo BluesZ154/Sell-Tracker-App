@@ -1,0 +1,338 @@
+/* ===== TOTAL BAR ===== */
+
+.total-bar-container {
+  position: fixed;
+
+  bottom: 18px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: calc(100% - 60px);
+  max-width: 1100px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+
+  padding: 16px 20px;
+
+  background: rgba(10, 15, 30, 0.82);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 14px 40px rgba(0,0,0,0.38),
+    0 0 30px rgba(99,102,241,0.06);
+
+  z-index: 999;
+
+  animation: totalBarShow 0.35s ease;
+}
+
+/* ===== GLOW ===== */
+.total-bar-container::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: inherit;
+
+  padding: 1px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(139,92,246,0.5),
+      rgba(59,130,246,0.2),
+      rgba(255,255,255,0.08)
+    );
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+
+  pointer-events: none;
+}
+
+/* ===== SECTIONS ===== */
+.total-qty-section,
+.total-price-section,
+.text-summary-section {
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== TOTAL QTY ===== */
+.total-qty-section {
+  min-width: 120px;
+
+  font-size: 1.8rem;
+  font-weight: 800;
+
+  color: #ffffff;
+}
+
+.total-qty-section::before {
+  content: "Total Qty";
+
+  font-size: 0.8rem;
+  font-weight: 500;
+
+  color: #94a3b8;
+
+  margin-bottom: 4px;
+}
+
+/* ===== TOTAL PRICE ===== */
+.total-price-section {
+  min-width: 180px;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+
+  color: #c4b5fd;
+}
+
+.total-price-section::before {
+  content: "Total Price";
+
+  font-size: 0.8rem;
+  font-weight: 500;
+
+  color: #94a3b8;
+
+  margin-bottom: 4px;
+}
+
+/* ===== SUMMARY ===== */
+.text-summary-section {
+  flex: 1;
+
+  color: #cbd5e1;
+
+  font-size: 0.95rem;
+
+  line-height: 1.7;
+
+  max-height: 90px;
+
+  overflow-y: auto;
+
+  padding-right: 8px;
+}
+
+.text-summary-section::before {
+  content: "Summary";
+
+  display: block;
+
+  font-size: 0.8rem;
+  font-weight: 500;
+
+  color: #94a3b8;
+
+  margin-bottom: 6px;
+}
+
+/* ===== CUSTOM SCROLL ===== */
+.text-summary-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.text-summary-section::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+
+  border-radius: 20px;
+}
+
+/* ===== BUTTON SECTION ===== */
+.btn-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== BUTTON ===== */
+.confirm-btn,
+.cancel-btn {
+  border: none;
+
+  padding: 14px 22px;
+
+  border-radius: 16px;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+
+  font-family: inherit;
+}
+
+/* ===== CONFIRM ===== */
+.confirm-btn {
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
+
+  color: white;
+
+  box-shadow:
+    0 10px 25px rgba(99,102,241,0.35);
+}
+
+.confirm-btn:hover {
+  transform: translateY(-2px);
+
+  opacity: 0.95;
+}
+
+/* ===== CANCEL ===== */
+.cancel-btn {
+  background: rgba(239,68,68,0.12);
+
+  border: 1px solid rgba(239,68,68,0.18);
+
+  color: #f87171;
+}
+
+.cancel-btn:hover {
+  background: rgba(239,68,68,0.18);
+
+  transform: translateY(-2px);
+}
+
+.total-qty-section {
+  min-width: 90px;
+
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.total-price-section {
+  min-width: 140px;
+
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.text-summary-section {
+  font-size: 0.88rem;
+
+  max-height: 70px;
+}
+
+.confirm-btn,
+.cancel-btn {
+  padding: 11px 18px;
+
+  border-radius: 14px;
+
+  font-size: 0.88rem;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes totalBarShow {
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 950px) {
+  .total-bar-container {
+    flex-wrap: wrap;
+
+    align-items: flex-start;
+  }
+
+  .text-summary-section {
+    width: 100%;
+    order: 4;
+  }
+
+  .btn-section {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 650px) {
+  .total-bar-container {
+    bottom: 14px;
+
+    width: calc(100% - 18px);
+
+    padding: 18px;
+
+    border-radius: 22px;
+  }
+
+  .total-qty-section {
+    font-size: 1.5rem;
+  }
+
+  .total-price-section {
+    font-size: 1.3rem;
+  }
+
+  .btn-section {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .confirm-btn,
+  .cancel-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .total-bar-container {
+    gap: 16px;
+  }
+
+  .total-qty-section,
+  .total-price-section {
+    width: 100%;
+  }
+
+  .text-summary-section {
+    font-size: 0.88rem;
+  }
+}
