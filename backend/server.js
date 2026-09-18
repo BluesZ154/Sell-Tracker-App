@@ -6,6 +6,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";
 import mongoose from "mongoose";
+
 import authRoutes from "./routes/authRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import transactionRoutes from "./routes/transactionsRoutes.js";
@@ -19,29 +20,69 @@ const app = express();
 // 🔐 MIDDLEWARE
 // ==================
 
-// Security header
 app.use(helmet());
 
-// Allow frontend connect
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://sell-tracker-app-audx.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
-// Logging request
 app.use(morgan("dev"));
 
-// Parse JSON & form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Cookie parser
 app.use(cookieParser());
 
-// Rate limiter (anti spam)
+// ==================
+// 🛡️ RATE LIMITER
+// ==================
+
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 menit
-  max: 100 // max 100 request
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
+
+app.use(limiter);
+
+// ==================
+// 🚀 DATABASE
+// ==================
+
+let isConnected = false;
+
+const connectDB = async () => {
+  if (isConnected) {
+    return;
+  }
+
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+
+    isConnected = true;
+
+    console.log("✅ MongoDB Connected");
+  } catch (error) {
+    console.error("❌ DB Connection Failed:", error.message);
+    throw error;
+  }
+};
+
+// Pastikan database terkoneksi sebelum request diproses
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    res.status(500).json({
+      message: "Database connection failed",
+    });
+  }
 });
 
 // ==================
@@ -54,26 +95,34 @@ app.use("/api/transaction", transactionRoutes);
 app.use("/api/stocklogs", stockLogsRoutes);
 
 // ==================
+// 🏠 TEST ROUTE
+// ==================
+
+app.get("/", (req, res) => {
+  res.json({
+    message: "SellTracker API is running",
+  });
+});
+
+// ==================
 // ❗ ERROR HANDLER
 // ==================
 
 app.use((req, res) => {
-  res.status(404).json({ message: "Route not found" });
+  res.status(404).json({
+    message: "Route not found",
+  });
 });
 
 // ==================
-// ▶️ RUN SERVER + CONNECT DB
+// 🚀 VERCEL
 // ==================
+const PORT = process.env.PORT || 5000;
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("✅ MongoDB Connected");
-
-    app.listen(process.env.PORT || 5000, () => {
-      console.log(`Server running on port ${process.env.PORT || 5000}`);
-    });
-
-  })
-  .catch((err) => {
-    console.log("❌ DB Connection Failed:", err.message);
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
   });
+}
+
+export default app;
